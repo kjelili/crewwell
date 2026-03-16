@@ -1,0 +1,22 @@
+{
+  "name": "crewwell-app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "video:studio": "remotion studio remotion/index.jsx",
+    "video:render": "remotion render remotion/index.jsx CrewWellDemo out/crewwell-demo.mp4 --overwrite"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.435",
+    "vite": "^8.0.0"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "^4.0.435"
+  }
+}
