@@ -186,6 +186,13 @@ textarea:focus-visible {
   border: 1px solid #8f3232;
 }
 
+.btn-sm {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.85rem;
+  min-height: 38px;
+  flex-shrink: 0;
+}
+
 .panel {
   border-radius: var(--radius-lg);
   padding: clamp(var(--space-4), 2.5vw, var(--space-6));
@@ -390,6 +397,88 @@ thead th {
   background: #10223f;
 }
 
+/* ── Site & Crew Management ── */
+
+.mgmt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.mgmt-card h3 {
+  margin-bottom: var(--space-3);
+}
+
+.mgmt-add-row {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.mgmt-add-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.mgmt-list {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.mgmt-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.mgmt-item span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-remove {
+  background: none;
+  border: 1px solid #8f3232;
+  color: #ffa0a0;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-remove:hover {
+  background: #5c1a1a;
+  color: #ffd0d0;
+}
+
+.btn-remove:focus-visible {
+  outline: 2px solid var(--danger);
+  outline-offset: 2px;
+}
+
+/* ── Responsive ── */
+
 @media (max-width: 980px) {
   .page {
     width: min(1120px, 100% - var(--space-5));
@@ -399,7 +488,8 @@ thead th {
   .form-grid,
   .filters,
   .stats-grid,
-  .dashboard-grid {
+  .dashboard-grid,
+  .mgmt-grid {
     grid-template-columns: 1fr;
   }
 

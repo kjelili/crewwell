@@ -43,3 +43,15 @@
 - Tool: IDE lints
 - Result: pass
 - Notes: No lint errors reported in `src/main.js` and `src/style.css` after v2 integration.
+
+### Checkpoint 8 - Phase 3 features build
+
+- Command: `npm run build`
+- Result: pass
+- Notes: Predictive risk, hotspot ranking, and action tracker compile with no bundling issues.
+
+### Checkpoint 9 - Phase 3 regression render
+
+- Command: `npm run video:render`
+- Result: pass
+- Output: `out/crewwell-demo.mp4`

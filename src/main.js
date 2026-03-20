@@ -2,6 +2,33 @@ import './style.css';
 
 const STORAGE_KEY = 'crewwell.checkins.v1';
 const LOCALE_KEY = 'crewwell.locale.v1';
+const SITES_KEY = 'crewwell.sites.v1';
+const CREWS_KEY = 'crewwell.crews.v1';
+
+const DEFAULT_CREWS = [
+  'Steel',
+  'Concrete',
+  'Electrical',
+  'Logistics',
+  'Scaffolding',
+  'Plumbing',
+  'HVAC',
+  'Roofing',
+  'Painting',
+  'Demolition',
+  'Carpentry',
+  'Welding',
+  'Heavy Equipment',
+  'Safety & Compliance',
+  'Site Preparation',
+];
+
+const DEFAULT_SITES = [
+  'North Yard',
+  'Tower A',
+  'West Access',
+  'Plant Room',
+];
 
 const SUPPORTED_LOCALES = [
   { id: 'en', label: 'English' },
@@ -17,6 +44,7 @@ const COPY = {
       'Capture short check-ins, detect fatigue and stress trends, and give supervisors practical recommendations before small issues become incidents.',
     startCheckIn: 'Start Check-In',
     viewDashboard: 'View Dashboard',
+    manageSites: 'Manage Sites & Crews',
     workerCheckIn: 'Worker Check-In',
     checkInSubtitle: 'Mobile-first, 60-second form. Submit anonymously or by name.',
     submissionType: 'Submission Type',
@@ -70,7 +98,7 @@ const COPY = {
     incidentFlags: 'Incident Flags',
     statusRequiredFields: 'Please complete all required fields.',
     statusSaved: 'Check-in captured successfully.',
-    statusReset: 'Demo data reset completed.',
+    statusReset: 'All check-in data has been cleared.',
     emptyCheckins: 'No check-ins available yet.',
     emptyTable: 'No data yet. Submit the first check-in above.',
     noCriticalAlerts: 'No critical trend alerts right now. Continue daily monitoring.',
@@ -109,6 +137,25 @@ const COPY = {
       'Preventive wellness referral: continue monthly resilience talks and hydration/rest reminders.',
     enhancedTitle: 'Enhanced v2 Capabilities Enabled',
     noReferrals: 'No immediate referrals required.',
+    siteManagement: 'Site & Crew Management',
+    siteManagementSubtitle: 'Project managers can add or remove sites and crews available in check-in forms.',
+    addSite: 'Add Site',
+    addCrew: 'Add Crew',
+    siteNamePlaceholder: 'New site name',
+    crewNamePlaceholder: 'New crew name',
+    currentSites: 'Current Sites',
+    currentCrews: 'Current Crews',
+    remove: 'Remove',
+    siteAdded: 'Site added successfully.',
+    siteRemoved: 'Site removed.',
+    crewAdded: 'Crew added successfully.',
+    crewRemoved: 'Crew removed.',
+    duplicateEntry: 'This entry already exists.',
+    emptyName: 'Please enter a name.',
+    confirmRemoveSite: 'Remove this site? Check-ins referencing it will keep their data.',
+    confirmRemoveCrew: 'Remove this crew? Check-ins referencing it will keep their data.',
+    restoreDefaults: 'Restore Defaults',
+    defaultsRestored: 'Default sites and crews restored.',
   },
   es: {
     appEyebrow: 'CrewWell · Bienestar en Operaciones',
@@ -117,6 +164,7 @@ const COPY = {
       'Capture registros breves, detecte tendencias de fatiga y estres, y entregue recomendaciones practicas a supervisores.',
     startCheckIn: 'Iniciar Registro',
     viewDashboard: 'Ver Panel',
+    manageSites: 'Gestionar Sitios y Cuadrillas',
     workerCheckIn: 'Registro del Trabajador',
     checkInSubtitle: 'Formulario movil de 60 segundos. Envio anonimo o con nombre.',
     submissionType: 'Tipo de Envio',
@@ -136,7 +184,7 @@ const COPY = {
     notes: 'Notas (opcional)',
     notesPlaceholder: 'Bloqueos, apoyo necesario o preocupaciones?',
     submitCheckIn: 'Enviar Registro',
-    resetData: 'Reiniciar Datos Demo',
+    resetData: 'Reiniciar Datos',
     dashboardTitle: 'Panel de Cuadrillas',
     dashboardSubtitle: 'Siga tendencias por cuadrilla y sitio para actuar rapido.',
     timeWindow: 'Ventana de Tiempo',
@@ -170,7 +218,7 @@ const COPY = {
     incidentFlags: 'Banderas de Incidente',
     statusRequiredFields: 'Complete los campos obligatorios.',
     statusSaved: 'Registro guardado con exito.',
-    statusReset: 'Datos demo reiniciados.',
+    statusReset: 'Todos los registros han sido eliminados.',
     emptyCheckins: 'Aun no hay registros.',
     emptyTable: 'Sin datos aun. Envie el primer registro arriba.',
     noCriticalAlerts: 'Sin alertas criticas por ahora. Mantenga monitoreo diario.',
@@ -204,6 +252,25 @@ const COPY = {
       'Derivacion preventiva: mantenga charlas mensuales de resiliencia y recordatorios de descanso.',
     enhancedTitle: 'Capacidades v2 Mejoradas Habilitadas',
     noReferrals: 'No se requieren derivaciones inmediatas.',
+    siteManagement: 'Gestion de Sitios y Cuadrillas',
+    siteManagementSubtitle: 'Los gerentes de proyecto pueden agregar o eliminar sitios y cuadrillas.',
+    addSite: 'Agregar Sitio',
+    addCrew: 'Agregar Cuadrilla',
+    siteNamePlaceholder: 'Nombre del nuevo sitio',
+    crewNamePlaceholder: 'Nombre de la nueva cuadrilla',
+    currentSites: 'Sitios Actuales',
+    currentCrews: 'Cuadrillas Actuales',
+    remove: 'Eliminar',
+    siteAdded: 'Sitio agregado con exito.',
+    siteRemoved: 'Sitio eliminado.',
+    crewAdded: 'Cuadrilla agregada con exito.',
+    crewRemoved: 'Cuadrilla eliminada.',
+    duplicateEntry: 'Esta entrada ya existe.',
+    emptyName: 'Ingrese un nombre.',
+    confirmRemoveSite: 'Eliminar este sitio? Los registros existentes conservaran sus datos.',
+    confirmRemoveCrew: 'Eliminar esta cuadrilla? Los registros existentes conservaran sus datos.',
+    restoreDefaults: 'Restaurar Valores Predeterminados',
+    defaultsRestored: 'Sitios y cuadrillas predeterminados restaurados.',
   },
   fr: {
     appEyebrow: 'CrewWell · Bien-etre des Operations',
@@ -212,6 +279,7 @@ const COPY = {
       "Capturez des check-ins rapides, detectez les tendances de fatigue et de stress, puis guidez les superviseurs avec des actions pratiques.",
     startCheckIn: 'Demarrer Check-In',
     viewDashboard: 'Voir Tableau de Bord',
+    manageSites: 'Gerer Sites et Equipes',
     workerCheckIn: 'Check-In Ouvrier',
     checkInSubtitle: 'Formulaire mobile de 60 secondes. Envoi anonyme ou nominatif.',
     submissionType: "Type d'Envoi",
@@ -231,7 +299,7 @@ const COPY = {
     notes: 'Notes (optionnel)',
     notesPlaceholder: 'Blocages, aide necessaire ou preoccupations ?',
     submitCheckIn: 'Soumettre Check-In',
-    resetData: 'Reinitialiser Demo',
+    resetData: 'Reinitialiser les Donnees',
     dashboardTitle: "Tableau d'Equipe",
     dashboardSubtitle: 'Suivez les tendances par equipe et site pour agir vite.',
     timeWindow: 'Fenetre Temporelle',
@@ -265,7 +333,7 @@ const COPY = {
     incidentFlags: 'Signaux Incident',
     statusRequiredFields: 'Veuillez completer les champs requis.',
     statusSaved: 'Check-in enregistre avec succes.',
-    statusReset: 'Donnees demo reinitialisees.',
+    statusReset: 'Toutes les donnees ont ete effacees.',
     emptyCheckins: 'Aucun check-in pour le moment.',
     emptyTable: "Aucune donnee. Soumettez le premier check-in ci-dessus.",
     noCriticalAlerts: "Aucune alerte critique. Continuez le suivi quotidien.",
@@ -299,11 +367,34 @@ const COPY = {
       'Orientation preventive: maintenir ateliers de resilience et rappels hydratation/repos.',
     enhancedTitle: 'Capacites v2 Activees',
     noReferrals: 'Aucune orientation immediate requise.',
+    siteManagement: 'Gestion des Sites et Equipes',
+    siteManagementSubtitle: 'Les chefs de projet peuvent ajouter ou supprimer des sites et equipes.',
+    addSite: 'Ajouter Site',
+    addCrew: 'Ajouter Equipe',
+    siteNamePlaceholder: 'Nom du nouveau site',
+    crewNamePlaceholder: "Nom de la nouvelle equipe",
+    currentSites: 'Sites Actuels',
+    currentCrews: 'Equipes Actuelles',
+    remove: 'Supprimer',
+    siteAdded: 'Site ajoute avec succes.',
+    siteRemoved: 'Site supprime.',
+    crewAdded: 'Equipe ajoutee avec succes.',
+    crewRemoved: 'Equipe supprimee.',
+    duplicateEntry: 'Cette entree existe deja.',
+    emptyName: 'Veuillez entrer un nom.',
+    confirmRemoveSite: 'Supprimer ce site ? Les check-ins existants conserveront leurs donnees.',
+    confirmRemoveCrew: 'Supprimer cette equipe ? Les check-ins existants conserveront leurs donnees.',
+    restoreDefaults: 'Restaurer les Valeurs par Defaut',
+    defaultsRestored: 'Sites et equipes par defaut restaures.',
   },
 };
 
+/* ── State ── */
+
 const state = {
   checkins: loadCheckins(),
+  sites: loadSites(),
+  crews: loadCrews(),
   filters: {
     crew: 'all',
     site: 'all',
@@ -315,11 +406,14 @@ const state = {
 const app = document.querySelector('#app');
 renderApp();
 
+/* ── Full render ── */
+
 function renderApp() {
   app.innerHTML = renderLayout();
   wireUpLocale();
   wireUpForm();
   wireUpFilters();
+  wireUpSiteManagement();
   refreshDashboard();
 }
 
@@ -327,6 +421,18 @@ function renderLayout() {
   const localeOptions = SUPPORTED_LOCALES.map(
     (item) => `<option value="${item.id}" ${state.locale === item.id ? 'selected' : ''}>${item.label}</option>`,
   ).join('');
+
+  const crewOptions = state.crews
+    .slice()
+    .sort()
+    .map((crew) => `<option value="${crew}">${crew}</option>`)
+    .join('');
+
+  const siteOptions = state.sites
+    .slice()
+    .sort()
+    .map((site) => `<option value="${site}">${site}</option>`)
+    .join('');
 
   return `
     <main class="page">
@@ -339,15 +445,15 @@ function renderLayout() {
           </label>
         </div>
         <h1 class="hero-title">${t('appTitle')}</h1>
-        <p class="hero-copy">
-          ${t('appCopy')}
-        </p>
+        <p class="hero-copy">${t('appCopy')}</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#checkin">${t('startCheckIn')}</a>
           <a class="btn btn-secondary" href="#dashboard">${t('viewDashboard')}</a>
+          <a class="btn btn-secondary" href="#site-management">${t('manageSites')}</a>
         </div>
       </header>
 
+      <!-- CHECK-IN FORM -->
       <section id="checkin" class="panel">
         <div class="panel-title-wrap">
           <h2>${t('workerCheckIn')}</h2>
@@ -369,20 +475,14 @@ function renderLayout() {
             <span>${t('crew')}</span>
             <select id="crew" name="crew" required>
               <option value="">${t('selectCrew')}</option>
-              <option value="Steel">Steel</option>
-              <option value="Concrete">Concrete</option>
-              <option value="Electrical">Electrical</option>
-              <option value="Logistics">Logistics</option>
+              ${crewOptions}
             </select>
           </label>
           <label class="field">
             <span>${t('site')}</span>
             <select id="site" name="site" required>
               <option value="">${t('selectSite')}</option>
-              <option value="North Yard">North Yard</option>
-              <option value="Tower A">Tower A</option>
-              <option value="West Access">West Access</option>
-              <option value="Plant Room">Plant Room</option>
+              ${siteOptions}
             </select>
           </label>
           <label class="field">
@@ -419,6 +519,7 @@ function renderLayout() {
         </form>
       </section>
 
+      <!-- DASHBOARD -->
       <section id="dashboard" class="panel">
         <div class="panel-title-wrap">
           <h2>${t('dashboardTitle')}</h2>
@@ -489,6 +590,38 @@ function renderLayout() {
         </article>
       </section>
 
+      <!-- SITE & CREW MANAGEMENT -->
+      <section id="site-management" class="panel">
+        <div class="panel-title-wrap">
+          <h2>${t('siteManagement')}</h2>
+          <p>${t('siteManagementSubtitle')}</p>
+        </div>
+        <div class="mgmt-grid">
+          <article class="card mgmt-card">
+            <h3>${t('currentSites')}</h3>
+            <div class="mgmt-add-row">
+              <input id="new-site-name" type="text" placeholder="${t('siteNamePlaceholder')}" maxlength="60" />
+              <button id="add-site-btn" class="btn btn-primary btn-sm" type="button">${t('addSite')}</button>
+            </div>
+            <p id="site-mgmt-status" class="status-message" aria-live="polite"></p>
+            <ul id="sites-list" class="mgmt-list"></ul>
+          </article>
+          <article class="card mgmt-card">
+            <h3>${t('currentCrews')}</h3>
+            <div class="mgmt-add-row">
+              <input id="new-crew-name" type="text" placeholder="${t('crewNamePlaceholder')}" maxlength="60" />
+              <button id="add-crew-btn" class="btn btn-primary btn-sm" type="button">${t('addCrew')}</button>
+            </div>
+            <p id="crew-mgmt-status" class="status-message" aria-live="polite"></p>
+            <ul id="crews-list" class="mgmt-list"></ul>
+          </article>
+        </div>
+        <div class="actions-row" style="margin-top:var(--space-4)">
+          <button id="restore-defaults-btn" class="btn btn-secondary" type="button">${t('restoreDefaults')}</button>
+        </div>
+      </section>
+
+      <!-- ROADMAP -->
       <section class="panel roadmap">
         <h2>${t('enhancedTitle')}</h2>
         <div class="chips">
@@ -496,11 +629,14 @@ function renderLayout() {
           <span class="chip">${t('supervisorNudges')}</span>
           <span class="chip">${t('incidentCorrelation')}</span>
           <span class="chip">${t('wellnessReferrals')}</span>
+          <span class="chip">${t('siteManagement')}</span>
         </div>
       </section>
     </main>
   `;
 }
+
+/* ── Wire-up: locale ── */
 
 function wireUpLocale() {
   const localeSelect = document.querySelector('#locale-select');
@@ -511,6 +647,8 @@ function wireUpLocale() {
     renderApp();
   });
 }
+
+/* ── Wire-up: check-in form ── */
 
 function wireUpForm() {
   const form = document.querySelector('#checkin-form');
@@ -563,12 +701,14 @@ function wireUpForm() {
   });
 
   resetButton.addEventListener('click', () => {
-    state.checkins = seedCheckins();
+    state.checkins = [];
     persistCheckins(state.checkins);
     setStatus(t('statusReset'), 'success');
     refreshDashboard();
   });
 }
+
+/* ── Wire-up: dashboard filters ── */
 
 function wireUpFilters() {
   document.querySelector('#filter-crew').addEventListener('change', (event) => {
@@ -585,6 +725,123 @@ function wireUpFilters() {
   });
 }
 
+/* ── Wire-up: site & crew management ── */
+
+function wireUpSiteManagement() {
+  const addSiteBtn = document.querySelector('#add-site-btn');
+  const addCrewBtn = document.querySelector('#add-crew-btn');
+  const newSiteInput = document.querySelector('#new-site-name');
+  const newCrewInput = document.querySelector('#new-crew-name');
+  const restoreBtn = document.querySelector('#restore-defaults-btn');
+
+  renderMgmtLists();
+
+  addSiteBtn.addEventListener('click', () => {
+    const name = newSiteInput.value.trim();
+    if (!name) {
+      setMgmtStatus('site', t('emptyName'), 'error');
+      return;
+    }
+    if (state.sites.some((s) => s.toLowerCase() === name.toLowerCase())) {
+      setMgmtStatus('site', t('duplicateEntry'), 'error');
+      return;
+    }
+    state.sites.push(name);
+    persistSites(state.sites);
+    newSiteInput.value = '';
+    setMgmtStatus('site', t('siteAdded'), 'success');
+    renderApp();
+  });
+
+  newSiteInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); addSiteBtn.click(); }
+  });
+
+  addCrewBtn.addEventListener('click', () => {
+    const name = newCrewInput.value.trim();
+    if (!name) {
+      setMgmtStatus('crew', t('emptyName'), 'error');
+      return;
+    }
+    if (state.crews.some((c) => c.toLowerCase() === name.toLowerCase())) {
+      setMgmtStatus('crew', t('duplicateEntry'), 'error');
+      return;
+    }
+    state.crews.push(name);
+    persistCrews(state.crews);
+    newCrewInput.value = '';
+    setMgmtStatus('crew', t('crewAdded'), 'success');
+    renderApp();
+  });
+
+  newCrewInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); addCrewBtn.click(); }
+  });
+
+  restoreBtn.addEventListener('click', () => {
+    state.sites = [...DEFAULT_SITES];
+    state.crews = [...DEFAULT_CREWS];
+    persistSites(state.sites);
+    persistCrews(state.crews);
+    renderApp();
+  });
+}
+
+function renderMgmtLists() {
+  const sitesList = document.querySelector('#sites-list');
+  const crewsList = document.querySelector('#crews-list');
+
+  sitesList.innerHTML = state.sites
+    .slice()
+    .sort()
+    .map(
+      (site) =>
+        `<li class="mgmt-item"><span>${site}</span><button class="btn-remove" data-type="site" data-name="${escapeAttr(site)}" title="${t('remove')}">&times;</button></li>`,
+    )
+    .join('');
+
+  crewsList.innerHTML = state.crews
+    .slice()
+    .sort()
+    .map(
+      (crew) =>
+        `<li class="mgmt-item"><span>${crew}</span><button class="btn-remove" data-type="crew" data-name="${escapeAttr(crew)}" title="${t('remove')}">&times;</button></li>`,
+    )
+    .join('');
+
+  sitesList.querySelectorAll('.btn-remove').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.name;
+      if (!confirm(t('confirmRemoveSite'))) return;
+      state.sites = state.sites.filter((s) => s !== name);
+      persistSites(state.sites);
+      setMgmtStatus('site', t('siteRemoved'), 'success');
+      renderApp();
+    });
+  });
+
+  crewsList.querySelectorAll('.btn-remove').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.name;
+      if (!confirm(t('confirmRemoveCrew'))) return;
+      state.crews = state.crews.filter((c) => c !== name);
+      persistCrews(state.crews);
+      setMgmtStatus('crew', t('crewRemoved'), 'success');
+      renderApp();
+    });
+  });
+}
+
+function setMgmtStatus(type, message, cls) {
+  const el = document.querySelector(`#${type}-mgmt-status`);
+  if (el) {
+    el.textContent = message;
+    el.className = `status-message ${cls}`;
+  }
+}
+
+/* ── Dashboard rendering ── */
+
 function refreshDashboard() {
   const filtered = getFilteredCheckins();
   populateFilterOptions();
@@ -600,8 +857,8 @@ function refreshDashboard() {
 function populateFilterOptions() {
   const crewSelect = document.querySelector('#filter-crew');
   const siteSelect = document.querySelector('#filter-site');
-  const crews = [...new Set(state.checkins.map((item) => item.crew))].sort();
-  const sites = [...new Set(state.checkins.map((item) => item.site))].sort();
+  const crews = [...new Set([...state.crews, ...state.checkins.map((item) => item.crew)])].filter(Boolean).sort();
+  const sites = [...new Set([...state.sites, ...state.checkins.map((item) => item.site)])].filter(Boolean).sort();
   crewSelect.innerHTML = `<option value="all">${t('allCrews')}</option>${crews.map((crew) => `<option value="${crew}">${crew}</option>`).join('')}`;
   siteSelect.innerHTML = `<option value="all">${t('allSites')}</option>${sites.map((site) => `<option value="${site}">${site}</option>`).join('')}`;
   crewSelect.value = state.filters.crew;
@@ -833,6 +1090,8 @@ function renderTable(checkins) {
   document.querySelector('#checkins-table').innerHTML = rows || `<tr><td colspan="8">${t('emptyTable')}</td></tr>`;
 }
 
+/* ── Utilities ── */
+
 function setStatus(message, type) {
   const el = document.querySelector('#status-message');
   el.textContent = message;
@@ -862,27 +1121,35 @@ function formatCopy(key, vars) {
   return t(key).replace(/\{([a-zA-Z]+)\}/g, (match, token) => (token in vars ? vars[token] : match));
 }
 
+function escapeAttr(str) {
+  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* ── Persistence: locale ── */
+
 function loadLocale() {
-  const stored = localStorage.getItem(LOCALE_KEY);
-  return COPY[stored] ? stored : 'en';
+  try {
+    const stored = localStorage.getItem(LOCALE_KEY);
+    return COPY[stored] ? stored : 'en';
+  } catch {
+    return 'en';
+  }
 }
 
 function persistLocale(locale) {
   localStorage.setItem(LOCALE_KEY, locale);
 }
 
+/* ── Persistence: check-ins (NO seed data) ── */
+
 function loadCheckins() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      const seeded = seedCheckins();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded));
-      return seeded;
-    }
+    if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.map((item) => normalizeCheckin(item)) : seedCheckins();
+    return Array.isArray(parsed) ? parsed.map((item) => normalizeCheckin(item)) : [];
   } catch {
-    return seedCheckins();
+    return [];
   }
 }
 
@@ -890,24 +1157,41 @@ function persistCheckins(checkins) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(checkins));
 }
 
-function seedCheckins() {
-  const now = Date.now();
-  const demo = [
-    { crew: 'Steel', site: 'North Yard', stress: 3, fatigue: 4, safetyReady: 'yes', incidentRecent: 'no', workerName: 'Anonymous', anonymous: true },
-    { crew: 'Concrete', site: 'Tower A', stress: 4, fatigue: 4, safetyReady: 'no', incidentRecent: 'yes', workerName: 'Anonymous', anonymous: true },
-    { crew: 'Electrical', site: 'Plant Room', stress: 2, fatigue: 3, safetyReady: 'yes', incidentRecent: 'no', workerName: 'M. Stone', anonymous: false },
-    { crew: 'Logistics', site: 'West Access', stress: 2, fatigue: 2, safetyReady: 'yes', incidentRecent: 'no', workerName: 'A. Tega', anonymous: false },
-    { crew: 'Steel', site: 'North Yard', stress: 4, fatigue: 5, safetyReady: 'no', incidentRecent: 'yes', workerName: 'Anonymous', anonymous: true },
-    { crew: 'Concrete', site: 'Tower A', stress: 3, fatigue: 3, safetyReady: 'yes', incidentRecent: 'no', workerName: 'R. Bello', anonymous: false },
-  ];
+/* ── Persistence: sites ── */
 
-  return demo.map((item, index) => ({
-    id: `seed-${index + 1}`,
-    timestamp: new Date(now - index * 12 * 60 * 60 * 1000).toISOString(),
-    notes: '',
-    ...normalizeCheckin(item),
-  }));
+function loadSites() {
+  try {
+    const raw = localStorage.getItem(SITES_KEY);
+    if (!raw) return [...DEFAULT_SITES];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : [...DEFAULT_SITES];
+  } catch {
+    return [...DEFAULT_SITES];
+  }
 }
+
+function persistSites(sites) {
+  localStorage.setItem(SITES_KEY, JSON.stringify(sites));
+}
+
+/* ── Persistence: crews ── */
+
+function loadCrews() {
+  try {
+    const raw = localStorage.getItem(CREWS_KEY);
+    if (!raw) return [...DEFAULT_CREWS];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : [...DEFAULT_CREWS];
+  } catch {
+    return [...DEFAULT_CREWS];
+  }
+}
+
+function persistCrews(crews) {
+  localStorage.setItem(CREWS_KEY, JSON.stringify(crews));
+}
+
+/* ── Normalize ── */
 
 function normalizeCheckin(item) {
   return {

@@ -22,6 +22,9 @@ It enables fast daily workforce check-ins and translates responses into trend al
   - Supervisor nudges based on participation, incident, and risk signals
   - Incident correlation insight between incident flags and high-risk indicators
   - Wellness referral suggestions based on current trend patterns
+  - Predictive next-shift risk scoring (0-100)
+  - Crew/site hotspot ranking for rapid prioritization
+  - Action tracker with persistent completion status
   - Recent check-ins table
 - Responsive, touch-friendly UI with high contrast and modern spacing/typography system.
 - LocalStorage-based persistence with seeded demo data and backward-compatible normalization.
@@ -46,6 +49,18 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+## Deploy on Vercel
+
+1. Import this repository (or the `crewwell` project folder) into Vercel.
+2. Keep the default Node.js runtime and package manager detection.
+3. Vercel will use:
+   - Install command: `npm install`
+   - Build command: `npm run build`
+   - Output directory: `dist`
+4. Deploy.
+
+`vercel.json` is already configured for SPA fallback rewrites so app routes resolve correctly.
 
 ## Render demo video
 

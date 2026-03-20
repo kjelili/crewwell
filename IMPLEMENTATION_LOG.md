@@ -79,3 +79,12 @@ Planned v2 additions from source:
 - Preserved stability and data compatibility:
   - Added check-in normalization so pre-existing localStorage records remain compatible.
   - Re-ran production build and lint checks after implementation.
+
+## Step 8 - Phase 3 implementation
+
+- Added advanced operational intelligence features:
+  - Predictive next-shift risk score based on stress, fatigue, safety, incident, and trend signals.
+  - Crew/site hotspot ranking to highlight highest-risk operational zones.
+  - Action tracker with persistent done/reopen workflow in localStorage.
+- Updated dashboard UX and roadmap chips to surface Phase 3 features clearly.
+- Re-verified build, lint, and video render after Phase 3 changes.
