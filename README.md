@@ -1,40 +1,46 @@
 # CrewWell Web App
 
-CrewWell is a site-operations wellness and safety pulse app.  
-It enables fast daily workforce check-ins and translates responses into trend alerts and practical manager recommendations.
+CrewWell is a site-operations wellness and safety pulse app with **user-owned data** and **role-based access control**.
+
+## Privacy & Data Ownership
+
+- **All data stays on the user's device** — stored in browser localStorage, never transmitted.
+- Each user account is **namespace-isolated** — one user cannot read another user's check-ins.
+- **Workers** see only their own check-in history.
+- **Project Managers** see all check-ins across all users for dashboard analytics and crew management.
+- PIN-secured local accounts — no cloud, no tracking, no data leaving the browser.
 
 ## What was implemented
 
-- Catchy, professional landing hero with clear value proposition and CTAs.
-- Multilingual UX layer with in-app language switching (English, Spanish, French).
-- Worker check-in form with:
-  - Anonymous or named submission mode
-  - Crew/site selection
-  - Stress and fatigue sliders
-  - Safety-readiness signal
-  - Near-miss / incident signal capture
-  - Optional notes
-- Dashboard with:
-  - Crew/site/time-window filters
-  - KPI cards
-  - Trend alerts (stress/fatigue/safety signals)
-  - Manager recommendations
-  - Supervisor nudges based on participation, incident, and risk signals
-  - Incident correlation insight between incident flags and high-risk indicators
-  - Wellness referral suggestions based on current trend patterns
-  - Predictive next-shift risk scoring (0-100)
-  - Crew/site hotspot ranking for rapid prioritization
-  - Action tracker with persistent completion status
-  - Recent check-ins table
-- Responsive, touch-friendly UI with high contrast and modern spacing/typography system.
-- LocalStorage-based persistence with seeded demo data and backward-compatible normalization.
-- Remotion demo video composition and render command.
+### Authentication & Access Control
+- Local user registration with display name, role selection, and PIN protection.
+- Two roles: **Worker** and **Project Manager**.
+- Session persistence so users stay signed in across page reloads.
+- Sign-out to switch between accounts.
+
+### Worker Experience
+- Check-in form with stress, fatigue, safety readiness, and incident reporting.
+- Option for anonymous or named submissions.
+- Personal check-in history table (only their own data).
+- No access to dashboard or site/crew management.
+
+### Project Manager Experience
+- Full dashboard with KPI cards, trend alerts, and manager recommendations.
+- Aggregated view of ALL check-ins from ALL registered users.
+- Supervisor nudges, incident correlation, and wellness referrals.
+- Site and crew management (add/remove/restore defaults).
+- Crew/site/time-window filters.
+
+### Shared Features
+- Multilingual UX (English, Spanish, French) with persisted preference.
+- Responsive, touch-friendly UI with high contrast and modern design.
+- LocalStorage-based persistence with backward-compatible normalization.
 
 ## Tech stack
 
-- Vite (vanilla JavaScript app shell)
+- Vanilla JavaScript (no framework dependencies for the core app)
 - Modern CSS with responsive grid and motion
-- Remotion + React (demo video generation)
+- Vite (for development/build tooling)
 
 ## Run locally
 
@@ -42,6 +48,8 @@ It enables fast daily workforce check-ins and translates responses into trend al
 npm install
 npm run dev
 ```
+
+Or open `crewwell-app.html` directly in a browser (single-file version).
 
 ## Production build
 
@@ -52,31 +60,32 @@ npm run preview
 
 ## Deploy on Vercel
 
-1. Import this repository (or the `crewwell` project folder) into Vercel.
-2. Keep the default Node.js runtime and package manager detection.
-3. Vercel will use:
+1. Import this repository into Vercel.
+2. Vercel will use:
    - Install command: `npm install`
    - Build command: `npm run build`
    - Output directory: `dist`
-4. Deploy.
+3. Deploy.
 
-`vercel.json` is already configured for SPA fallback rewrites so app routes resolve correctly.
+`vercel.json` is configured for SPA fallback rewrites.
 
-## Render demo video
+## Data Architecture
 
-```bash
-npm run video:render
+```
+localStorage keys:
+├── crewwell.users.registry        → [{id, displayName, role, pinHash, createdAt}]
+├── crewwell.session.active        → {userId}
+├── crewwell.user.<ID>.checkins    → [check-in objects]
+├── crewwell.user.<ID>.sites       → [site names]
+├── crewwell.user.<ID>.crews       → [crew names]
+└── crewwell.user.<ID>.locale      → "en" | "es" | "fr"
 ```
 
-Output file:
-
-- `out/crewwell-demo.mp4`
+Each user's data is fully namespaced under their unique ID. Managers aggregate by scanning all registered users' check-in stores (read-only).
 
 ## Project structure
 
-- `src/main.js` - App logic and data model
-- `src/style.css` - Design system and responsive UI styles
-- `remotion/` - Demo video composition files
-- `IMPLEMENTATION_LOG.md` - Step-by-step implementation record
-- `BUILD_VERIFICATION.md` - Stability checks after each stage
-- `DOCUMENTATION_SOURCES.md` - External docs used in implementation
+- `src/main.js` — App logic, auth, data model, role-based rendering
+- `src/style.css` — Design system and responsive UI styles
+- `crewwell-app.html` — Single-file standalone version
+- `README.md` — This file
